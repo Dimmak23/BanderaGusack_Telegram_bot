@@ -13,11 +13,20 @@ import java.util.Map;
 
 public class Utils {
 
+//	private static Map<Long, Integer> levels = new HashMap<>();
+//
+//	public static int getLevel(Long chatId) {
+//		return levels.getOrDefault(chatId, 1);
+//	}
+//
+//	public static void setLevel(Long chatId, int level) {
+//		levels.put(chatId, level);
+//	}
+
 	public static Long getChatId(Update update) {
 		if (update.hasMessage()) {
 			return update.getMessage().getFrom().getId();
-		}
-		if (update.hasCallbackQuery()) {
+		} else if (update.hasCallbackQuery()) {
 			return update.getCallbackQuery().getFrom().getId();
 		} else return null;
 	}
@@ -69,4 +78,5 @@ public class Utils {
 		markup.setKeyboard(keyboard);
 		message.setReplyMarkup(markup);
 	}
+
 }
