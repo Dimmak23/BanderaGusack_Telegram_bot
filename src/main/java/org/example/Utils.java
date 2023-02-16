@@ -79,4 +79,10 @@ public class Utils {
 		message.setReplyMarkup(markup);
 	}
 
+	public static List<String> getRandomVariants(List<String> variants) {
+		ArrayList<String> copy = new ArrayList<>(variants);
+		Collections.shuffle(copy);
+		return copy.subList(0, 3);
+	}
+
 }
