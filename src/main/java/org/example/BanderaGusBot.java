@@ -53,12 +53,18 @@ public class BanderaGusBot extends TelegramLongPollingBot {
 							"Обери завдання, щоб перейти на наступний рівень"
 			);
 			message.setChatId(chatID);
+			List<String> buttons = Arrays.asList(
+					"Сплести маскувальну сітку",
+					"Зібрати кошти патріотичними піснями",
+					"Вступити в Міністерство Мемів України",
+					"Запустити волонтерську акцію",
+					"Вступити до лав тероборони"
+			);
+			buttons = Utils.getRandomVariants(buttons);
 			Utils.attachButtons(message, Map.of(
-					"Сплести маскувальну сітку (+15 монет)", "level_1_task",
-					"Зібрати кошти патріотичними піснями (+15 монет)", "level_1_task",
-					"Вступити в Міністерство Мемів України (+15 монет)", "level_1_task",
-					"Запустити волонтерську акцію (+15 монет)", "level_1_task",
-					"Вступити до лав тероборони (+15 монет)", "level_1_task"
+					buttons.get(0), "level_1_task",
+					buttons.get(1), "level_1_task",
+					buttons.get(2), "level_1_task"
 					)
 			);
 			sendApiMethodAsync(message);
