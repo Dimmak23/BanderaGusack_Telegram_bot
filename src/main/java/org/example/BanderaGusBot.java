@@ -7,6 +7,8 @@ import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 public class BanderaGusBot extends TelegramLongPollingBot {
@@ -70,12 +72,18 @@ public class BanderaGusBot extends TelegramLongPollingBot {
 									"Баланс: 20 монет.\n" +
 									"Обери завдання, щоб перейти на наступний рівень"
 					);
+					List<String> buttons = Arrays.asList(
+							"Зібрати комарів для нової біологічної зброї (+15 монет)",
+							"Пройти курс молодого бійця (+15 монет)",
+							"Задонатити на ЗСУ (+15 монет)",
+							"Збити дрона банкою огірків (+15 монет)",
+							"Зробити запаси коктейлів Молотова (+15 монет)"
+					);
+					buttons = Utils.getRandomVariants(buttons);
 					Utils.attachButtons(message, Map.of(
-							"Зібрати комарів для нової біологічної зброї (+15 монет)", "level_2_task",
-							"Пройти курс молодого бійця (+15 монет)", "level_2_task",
-							"Задонатити на ЗСУ (+15 монет)", "level_2_task",
-							"Збити дрона банкою огірків (+15 монет)", "level_2_task",
-							"Зробити запаси коктейлів Молотова (+15 монет)", "level_2_task"
+							buttons.get(0), "level_2_task",
+							buttons.get(1), "level_2_task",
+							buttons.get(2), "level_2_task"
 							)
 					);
 					message.setChatId(chatID);
@@ -89,12 +97,18 @@ public class BanderaGusBot extends TelegramLongPollingBot {
 									"Баланс: 35 монет.\n" +
 									"Обери завдання, щоб перейти на наступний рівень"
 					);
+					List<String> buttons = Arrays.asList(
+							"Злітати на тестовий рейд по чотирьох позиціях (+15 монет)",
+							"Відвезти гуманітарку на передок (+15 монет)",
+							"Знайти зрадника та здати в СБУ (+15 монет)",
+							"Навести арту на орків (+15 монет)",
+							"Притягнути танк трактором (+15 монет)"
+					);
+					buttons = Utils.getRandomVariants(buttons);
 					Utils.attachButtons(message, Map.of(
-							"Злітати на тестовий рейд по чотирьох позиціях (+15 монет)", "level_3_task",
-							"Відвезти гуманітарку на передок (+15 монет)", "level_3_task",
-							"Знайти зрадника та здати в СБУ (+15 монет)", "level_3_task",
-							"Навести арту на орків (+15 монет)", "level_3_task",
-							"Притягнути танк трактором (+15 монет)", "level_3_task"
+							buttons.get(0), "level_3_task",
+							buttons.get(1), "level_3_task",
+							buttons.get(2), "level_3_task"
 							)
 					);
 					message.setChatId(chatID);
