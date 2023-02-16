@@ -6,22 +6,28 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Utils {
 
-//	private static Map<Long, Integer> levels = new HashMap<>();
-//
-//	public static int getLevel(Long chatId) {
-//		return levels.getOrDefault(chatId, 1);
-//	}
-//
-//	public static void setLevel(Long chatId, int level) {
-//		levels.put(chatId, level);
-//	}
+	private static Map<Long, Integer> levels = new HashMap<>();
+	private static Map<Long, Integer> bonuses = new HashMap<>();
+
+	public static int getLevel(Long chatId) {
+		return levels.getOrDefault(chatId, 1);
+	}
+
+	public static void setLevel(Long chatId, int level) {
+		levels.put(chatId, level);
+	}
+
+	public static int getBonus(Long chatId) {
+		return bonuses.getOrDefault(chatId, 5);
+	}
+
+	public static void addBonus(Long chatId, int adder) {
+		bonuses.put(chatId, getBonus(chatId) + adder);
+	}
 
 	public static Long getChatId(Update update) {
 		if (update.hasMessage()) {
@@ -79,4 +85,41 @@ public class Utils {
 		message.setReplyMarkup(markup);
 	}
 
+	public static List<String> getRandomVariants(List<String> variants) {
+		ArrayList<String> copy = new ArrayList<>(variants);
+		Collections.shuffle(copy);
+		return copy.subList(0, 3);
+	}
+
+	/*
+	public static void checkInput(String input) {
+		if (input.matches("(add|minus)_\\d{2}")) {
+			String[] parts = input.split("_");
+			String operator = parts[0];
+			int number = Integer.parseInt(parts[1]);
+			if (number >= 1 && number <= 99) {
+				System.out.println("Input is valid: " + operator + " " + number);
+			} else {
+				System.out.println("Invalid input: number must be between 01 and 99");
+			}
+		} else {
+			System.out.println("Invalid input: input must start with 'add' or 'minus' and end with a two-digit number");
+		}
+	}
+	 */
+	public static void updateBonus(Long chatId, String CallBack) {
+		if (CallBack.matches("(add|minus)_\\d{2}")) {
+			String[] parts = CallBack.split("_");
+			String operator = parts[0]; // get operator
+			int number = Integer.parseInt(parts[1]); // get value
+			if (number >= 1 && number <= 99) {
+				if (operator.equals("minus")) number *= -1;
+				addBonus(chatId, number);
+			} else {
+				System.out.println("Invalid input: number must be between 01 and 99");
+			}
+		} else {
+			System.out.println("Invalid input: input must start with 'add' or 'minus' and end with a two-digit number");
+		}
+	}
 }
